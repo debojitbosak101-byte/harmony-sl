@@ -1,6 +1,9 @@
-﻿import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import artistImg from './Pic/Artist.jpeg';
 import eventVideo from './Pic/sel_video.mp4';
+import liveMusicImg from './Pic/live_music.png';
+import corporateImg from './Pic/corporate.png';
+import weddingImg from './Pic/wedding.png';
 
 const company = {
   name: "Streamline Harmony Event's & Entertainment",
@@ -86,6 +89,11 @@ const serviceTags = ['Live Music', 'Corporate Events', 'Private Parties', 'Puja 
 
 const testimonials = [
   {
+    name: 'Anuradha Agarwal',
+    role: 'Business Owner / Client',
+    quote: 'I saw your program at the Lake View Hotel in Baharampur on Poyala Baishakh. The saxophone and violin artists were unbelievable! I never thought such an instrumental program could happen. Full house event, hats off to Streamline Harmony and Debojit!'
+  },
+  {
     name: 'Asha R.',
     role: 'College Fest Organizer',
     quote: 'Streamline Harmony made our fest magical with a power-packed band and flawless coordination.'
@@ -169,6 +177,17 @@ function App() {
         {page === 'contact' && <ContactPage />}
       </div>
 
+      <ScrollSection className="instagram-cta-section">
+        <div className="insta-card">
+          <span className="insta-badge">INSTAGRAM SPOTLIGHT</span>
+          <h2>Working hard to bring you more spectacular events!</h2>
+          <p>Follow our journey, view live event highlights, and see behind-the-scenes clips of our crew in action.</p>
+          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="insta-btn">
+            Follow @StreamlineHarmony
+          </a>
+        </div>
+      </ScrollSection>
+
       <footer className="footer-bar animate-fade delay-5">
         <span>{company.name} — Premier Event Management across West Bengal & Beyond.</span>
       </footer>
@@ -219,19 +238,22 @@ function EventPage({ setPage }) {
       title: 'Live Music & Celebrity Acts',
       subtitle: 'Zee Bangla Sa Re Ga Ma Artists',
       details: 'Featuring top-tier talent like Jojo, Nachiketa, and Durnibar for an unforgettable musical journey.',
-      icon: '🎤'
+      icon: '🎤',
+      image: liveMusicImg
     },
     {
       title: 'Corporate & Private Events',
       subtitle: 'Professional Management',
       details: 'Seamless execution for corporate gatherings, private parties, and grand puja bookings.',
-      icon: '🏢'
+      icon: '🏢',
+      image: corporateImg
     },
     {
       title: 'Weddings & Decorations',
       subtitle: 'Full Service Planning',
       details: 'Complete wedding solutions including catering, thematic decorations (Gates, Cartoons), and sound/light.',
-      icon: '💍'
+      icon: '💍',
+      image: weddingImg
     }
   ];
 
@@ -254,7 +276,7 @@ function EventPage({ setPage }) {
             <p>Celebrity artists</p>
           </div>
           <div className="animate-fade delay-4">
-            <strong>4</strong>
+            <strong>50+</strong>
             <p>Key Locations</p>
           </div>
         </div>
@@ -265,7 +287,8 @@ function EventPage({ setPage }) {
           <ScrollSection key={item.title} className="event-card-wrapper">
             <article className="event-card">
               <div className="card-image-wrapper">
-                <div className="image-block" />
+                <img src={item.image} alt={item.title} className="card-bg-image" />
+                <div className="image-overlay-tint" />
                 <div className="card-icon">{item.icon}</div>
               </div>
               <div className="card-content">
@@ -310,6 +333,27 @@ function EventPage({ setPage }) {
         </div>
       </ScrollSection>
 
+      <ScrollSection className="wide-card">
+        <div className="spotlight-instrumental">
+          <div className="spotlight-content">
+            <div className="spotlight-glow" />
+            <div className="spotlight-inner">
+              <span className="badge accent-badge">Signature Showcase</span>
+              <h2>Poyala Baishakh Splendor at Lake View Hotel, Baharampur</h2>
+              <p>
+                An unbelievable, full-house instrumental night that left the audience spellbound. We featured a phenomenal saxophone and violin ensemble combined with state-of-the-art acoustics and stunning stage lighting to deliver a mesmerizing performance.
+              </p>
+              <div className="spotlight-tags">
+                <span>🎷 Virtuoso Saxophone</span>
+                <span>🎻 Solo Violinist</span>
+                <span>🏨 Lake View Hotel</span>
+                <span>🔥 100% Sold Out</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ScrollSection>
+
       <ScrollSection className="wedding-services">
         <h2>Full Wedding Planning & Decor</h2>
         <p>We provide all-inclusive wedding services for a stress-free celebration:</p>
@@ -334,6 +378,26 @@ function EventPage({ setPage }) {
             <h3>Production</h3>
             <p>Professional sound and light focusing on creating a magical atmosphere.</p>
           </div>
+        </div>
+      </ScrollSection>
+
+      <ScrollSection className="wide-card">
+        <h2>Client & Audience Testimonials</h2>
+        <p className="subtitle-text">What our clients and guests say about our custom-curated events:</p>
+        <div className="testimonials-grid">
+          {testimonials.map((t, idx) => (
+            <div key={t.name} className={`testimonial-card animate-fade delay-${(idx % 4) + 1}`}>
+              <div className="quote-mark">“</div>
+              <p className="quote-body">{t.quote}</p>
+              <div className="author-meta">
+                <div className="author-avatar">{t.name.split(' ').map(n => n[0]).join('')}</div>
+                <div>
+                  <h4 className="author-name">{t.name}</h4>
+                  <span className="author-role">{t.role}</span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </ScrollSection>
 
@@ -424,6 +488,7 @@ function ContactPage() {
               <option>Wedding Planning</option>
               <option>Private Party</option>
               <option>Puja Booking</option>
+              <option>Fest & Social</option>
             </select>
           </div>
           <div className="form-group">
