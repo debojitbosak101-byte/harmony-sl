@@ -467,13 +467,16 @@ img { max-width: 100%; display: block; }
 
 .hero-artist-img {
   width: 100%;
-  height: 560px;
-  object-fit: cover;
+  /* Show full image — no cropping */
+  height: auto;
+  max-height: 620px;
+  object-fit: contain;
   object-position: top center;
   display: block;
+  background: var(--purple-50);
   transition: transform 0.6s ease;
 }
-.hero-artist-frame:hover .hero-artist-img { transform: scale(1.04); }
+.hero-artist-frame:hover .hero-artist-img { transform: scale(1.03); }
 
 .hero-artist-badge {
   position: absolute;
@@ -666,7 +669,7 @@ img { max-width: 100%; display: block; }
 
 .badge-purple {
   display: inline-block;
-  padding: 6px 14px;
+  padding: 6px 16px;
   background: rgba(255,255,255,0.15);
   border: 1px solid rgba(255,255,255,0.3);
   border-radius: 100px;
@@ -676,6 +679,12 @@ img { max-width: 100%; display: block; }
   text-transform: uppercase;
   margin-bottom: 14px;
   color: white;
+}
+/* On LIGHT backgrounds, badge must be dark */
+.badge-purple.on-light {
+  background: var(--purple-100);
+  border-color: var(--purple-300);
+  color: var(--purple-700);
 }
 .badge-purple.accent { background: rgba(255,255,255,0.2); }
 
@@ -700,14 +709,14 @@ img { max-width: 100%; display: block; }
 }
 .featured-video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* ─── Instrumental Spotlight ──────────────────────────────── */
+/* ─── Instrumental Spotlight ───────────────────────────── */
 .instrumental-spotlight {
-  background: var(--purple-50);
-  border: 1px solid var(--purple-200);
+  background: linear-gradient(135deg, var(--purple-900) 0%, var(--purple-800) 60%, var(--purple-700) 100%);
   border-radius: var(--r-xl);
   padding: 50px;
   position: relative;
   overflow: hidden;
+  color: white;
 }
 
 .spotlight-glow-orb {
@@ -1273,7 +1282,7 @@ img { max-width: 100%; display: block; }
   .hero-content { align-items: center; }
   .hero-subtitle { max-width: 580px; }
   .hero-artist-frame { max-width: 440px; margin: 0 auto; }
-  .hero-artist-img { height: 440px; object-position: top center; }
+  .hero-artist-img { height: auto; max-height: 520px; object-fit: contain; object-position: top center; background: var(--purple-50); }
   .hero-image-col { order: -1; } /* Artist photo ABOVE text on tablet */
   .about-hero { grid-template-columns: 1fr; }
   .about-logo-col { order: -1; }
@@ -1315,9 +1324,12 @@ img { max-width: 100%; display: block; }
     border-width: 3px;
   }
   .hero-artist-img {
-    height: 360px;
-    object-fit: cover;
+    /* Full image, no crop on mobile */
+    height: auto;
+    max-height: none;
+    object-fit: contain;
     object-position: top center;
+    background: var(--purple-50);
   }
   .hero-artist-badge {
     font-size: 0.74rem;
@@ -1407,7 +1419,8 @@ img { max-width: 100%; display: block; }
 /* ── Small Mobile (≤430px) ── */
 @media (max-width: 430px) {
   .hero-section { padding: 86px 14px 44px; }
-  .hero-artist-img { height: 300px; }
+  /* Artist image: full view, no crop on small screens */
+  .hero-artist-img { height: auto; max-height: none; object-fit: contain; }
   .hero-title { font-size: clamp(1.8rem, 7.5vw, 2.4rem); }
   .nav-logo { height: 44px; }
   .navbar-inner { padding: 0 14px; }
