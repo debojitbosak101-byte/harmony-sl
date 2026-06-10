@@ -396,7 +396,7 @@ function TestimonialsHScroller() {
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
-    const speed = 0.7; // px per frame
+    const speed = 0.3; // px per frame — slow, readable scroll
 
     const animate = () => {
       if (!pausedRef.current && !isDragging.current) {
@@ -429,10 +429,28 @@ function TestimonialsHScroller() {
     syncPos();
   };
   const onMouseLeave = () => {
+    // Only stop drag — don't touch pausedRef (that's managed by outer wrapper)
     isDragging.current = false;
-    pausedRef.current = false;
-    trackRef.current.style.cursor = 'grab';
+    if (trackRef.current) trackRef.current.style.cursor = 'grab';
     syncPos();
+  };
+
+  // Touch support for mobile swipe
+  const touchStartX = useRef(0);
+  const touchScrollStart = useRef(0);
+  const onTouchStart = (e) => {
+    pausedRef.current = true;
+    touchStartX.current = e.touches[0].pageX;
+    touchScrollStart.current = trackRef.current.scrollLeft;
+  };
+  const onTouchMove = (e) => {
+    const walk = (touchStartX.current - e.touches[0].pageX) * 1.2;
+    trackRef.current.scrollLeft = touchScrollStart.current + walk;
+    posRef.current = trackRef.current.scrollLeft;
+  };
+  const onTouchEnd = () => {
+    syncPos();
+    pausedRef.current = false;
   };
   const onMouseMove = (e) => {
     if (!isDragging.current) return;
@@ -457,6 +475,9 @@ function TestimonialsHScroller() {
         onMouseUp={onMouseUp}
         onMouseLeave={onMouseLeave}
         onMouseMove={onMouseMove}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
       >
         {doubled.map((t, i) => (
           <div key={i} className="testimonial-card testi-h-card">
@@ -594,6 +615,30 @@ function EventPage({ setPage }) {
           </div>
         </div>
       </ScrollSection>
+
+      {/* ── Our Photo Gallery ── */}
+      <section className="events-photo-gallery">
+        <ScrollSection>
+          <span className="section-eyebrow">Our Events</span>
+          <h2 className="section-title">Moments We've Created</h2>
+        </ScrollSection>
+        <div className="events-photo-strip">
+          {[
+            { src: artistCollageImg,   label: 'Exclusive Artists',    caption: 'Our curated network of celebrity performers' },
+            { src: eventsGridImg,      label: 'Live Events',           caption: 'Electrifying stages across India' },
+            { src: galleryCollageImg,  label: "Event's Gallery",       caption: 'Grand weddings & spectacular celebrations' },
+            { src: djArtistCollageImg, label: 'DJ & Instrumental',     caption: 'DJs, Saxophonists, Violinists & more' },
+          ].map((img, i) => (
+            <ScrollSection key={i} className="events-photo-card" delay={i * 100}>
+              <img src={img.src} alt={img.label} className="events-photo-img" loading="lazy" />
+              <div className="events-photo-overlay">
+                <span className="events-photo-label">{img.label}</span>
+                <p className="events-photo-caption">{img.caption}</p>
+              </div>
+            </ScrollSection>
+          ))}
+        </div>
+      </section>
 
       <section className="wedding-section">
         <ScrollSection>
