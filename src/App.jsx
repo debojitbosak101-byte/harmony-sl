@@ -497,6 +497,50 @@ function TestimonialsHScroller() {
   );
 }
 
+// ─── Events Photo Gallery ─────────────────────────────────────────────────────
+const galleryData = [
+  { src: artistCollageImg,   label: 'Exclusive Artists',  caption: 'Our curated network of celebrity performers' },
+  { src: eventsGridImg,      label: 'Live Events',         caption: 'Electrifying stages across India' },
+  { src: galleryCollageImg,  label: "Event's Gallery",     caption: 'Grand weddings & spectacular celebrations' },
+  { src: djArtistCollageImg, label: 'DJ & Instrumental',   caption: 'DJs, Saxophonists, Violinists & more' },
+];
+
+function EventsPhotoGallery() {
+  const [hoveredIdx, setHoveredIdx] = useState(null);
+
+  return (
+    <section className="events-photo-gallery">
+      <ScrollSection>
+        <span className="section-eyebrow">Our Events</span>
+        <h2 className="section-title">Moments We've Created</h2>
+      </ScrollSection>
+      <div
+        className={`events-photo-strip ${hoveredIdx !== null ? 'strip-has-hover' : ''}`}
+      >
+        {galleryData.map((img, i) => (
+          <div
+            key={i}
+            className={`events-photo-card ${hoveredIdx === i ? 'card-focused' : ''} ${hoveredIdx !== null && hoveredIdx !== i ? 'card-blurred' : ''}`}
+            onMouseEnter={() => setHoveredIdx(i)}
+            onMouseLeave={() => setHoveredIdx(null)}
+          >
+            <img
+              src={img.src}
+              alt={img.label}
+              className="events-photo-img"
+              loading={i === 0 ? 'eager' : 'lazy'}
+            />
+            <div className="events-photo-overlay">
+              <span className="events-photo-label">{img.label}</span>
+              <p className="events-photo-caption">{img.caption}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 // ─── Events Page ──────────────────────────────────────────────────────────────
 function EventPage({ setPage }) {
   const services = [
@@ -526,7 +570,10 @@ function EventPage({ setPage }) {
   return (
     <main className="page-content">
 
-      {/* ── Why Choose Us — FIRST ── */}
+      {/* ── Moments We've Created — Photo Gallery ── */}
+      <EventsPhotoGallery />
+
+      {/* ── Why Choose Us ── */}
       <ScrollSection className="why-us-section">
         <span className="section-eyebrow">Why Choose Us</span>
         <h2 className="section-title">Why Streamline Harmony?</h2>
@@ -615,30 +662,6 @@ function EventPage({ setPage }) {
           </div>
         </div>
       </ScrollSection>
-
-      {/* ── Our Photo Gallery ── */}
-      <section className="events-photo-gallery">
-        <ScrollSection>
-          <span className="section-eyebrow">Our Events</span>
-          <h2 className="section-title">Moments We've Created</h2>
-        </ScrollSection>
-        <div className="events-photo-strip">
-          {[
-            { src: artistCollageImg,   label: 'Exclusive Artists',    caption: 'Our curated network of celebrity performers' },
-            { src: eventsGridImg,      label: 'Live Events',           caption: 'Electrifying stages across India' },
-            { src: galleryCollageImg,  label: "Event's Gallery",       caption: 'Grand weddings & spectacular celebrations' },
-            { src: djArtistCollageImg, label: 'DJ & Instrumental',     caption: 'DJs, Saxophonists, Violinists & more' },
-          ].map((img, i) => (
-            <ScrollSection key={i} className="events-photo-card" delay={i * 100}>
-              <img src={img.src} alt={img.label} className="events-photo-img" loading="lazy" />
-              <div className="events-photo-overlay">
-                <span className="events-photo-label">{img.label}</span>
-                <p className="events-photo-caption">{img.caption}</p>
-              </div>
-            </ScrollSection>
-          ))}
-        </div>
-      </section>
 
       <section className="wedding-section">
         <ScrollSection>
