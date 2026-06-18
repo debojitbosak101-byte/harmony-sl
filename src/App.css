@@ -1894,3 +1894,59 @@ img { max-width: 100%; display: block; }
   .events-photo-strip { gap: 10px; }
   .events-photo-card { aspect-ratio: 2 / 3; border-radius: var(--r-md); }
 }
+
+/* ─── Mobile Moments Scroller ────────────────────────── */
+.events-photo-strip-mobile-wrap {
+  position: relative;
+  overflow: hidden;
+  /* Fade left and right edges */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  width: 100%;
+}
+
+.events-photo-strip-mobile {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth momentum scrolling on iOS */
+  padding: 10px 18px 20px; /* Offset margins for center snap alignment spacing */
+  scroll-snap-type: x mandatory; /* Enable snapping alignment */
+  scrollbar-width: none;
+  touch-action: pan-x; /* Allow native horizontal swipe, don't block vertical scrolling */
+}
+.events-photo-strip-mobile::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-gallery-card {
+  min-width: 250px;
+  max-width: 260px;
+  flex-shrink: 0;
+  aspect-ratio: 9 / 16;
+  scroll-snap-align: center; /* Snap cards to center as they scroll */
+}
+
+/* Let click/drag events fall through to the container to fix desktop dragging */
+.mobile-gallery-card img,
+.mobile-gallery-card .events-photo-overlay {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Ensure overlays and labels are always visible in mobile scroller */
+.mobile-gallery-card .events-photo-overlay {
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(20, 0, 60, 0.9) 100%
+  );
+  opacity: 1;
+}
+.mobile-gallery-card .events-photo-label {
+  transform: translateY(0);
+}
+.mobile-gallery-card .events-photo-caption {
+  transform: translateY(0);
+}

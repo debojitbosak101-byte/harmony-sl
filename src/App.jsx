@@ -316,6 +316,9 @@ function Hero({ setPage }) {
           </div>
         </div>
 
+        {/* Moments scrolling photos gallery placed before Book an Event buttons on mobile */}
+        <EventsPhotoGallery />
+
         {/* Buttons & Stats exact under the celebrity artist photo on mobile */}
         <div className="hero-actions">
           <button className="btn-primary" onClick={() => setPage('contact')}>Book an Event</button>
@@ -549,8 +552,17 @@ const galleryData = [
   { src: djArtistCollageImg, label: 'DJ & Instrumental',   caption: 'DJs, Saxophonists, Violinists & more' },
 ];
 
-function EventsPhotoGallery() {
+function EventsPhotoGallery({ hideOnMobile = false }) {
   const [hoveredIdx, setHoveredIdx] = useState(null);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth <= 900 : false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 900);
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  if (hideOnMobile && isMobile) return null;
 
   return (
     <section className="events-photo-gallery">
@@ -558,6 +570,7 @@ function EventsPhotoGallery() {
         <span className="section-eyebrow">Our Events</span>
         <h2 className="section-title">Moments We've Created</h2>
       </ScrollSection>
+
       <div
         className={`events-photo-strip ${hoveredIdx !== null ? 'strip-has-hover' : ''}`}
       >
@@ -615,7 +628,7 @@ function EventPage({ setPage }) {
     <main className="page-content">
 
       {/* ── Moments We've Created — Photo Gallery ── */}
-      <EventsPhotoGallery />
+      <EventsPhotoGallery hideOnMobile={true} />
 
       {/* ── Why Choose Us ── */}
       <ScrollSection className="why-us-section">
