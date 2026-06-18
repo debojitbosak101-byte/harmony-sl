@@ -253,7 +253,47 @@ function Hero({ setPage }) {
     <header className="hero-section">
       <div className="hero-bg" style={{ backgroundImage: `url(${splashImg})` }} />
       <div className="hero-overlay" />
-      <div className="hero-content">
+
+      {/* ── Desktop Layout ── */}
+      <div className="hero-desktop-layout">
+        <div className="hero-content">
+          <div className="hero-badge animate-badge">Premier Event Management</div>
+          <h1 className="hero-title">
+            We Craft <span className="hero-highlight">Unforgettable</span><br />
+            Experiences
+          </h1>
+          <p className="hero-subtitle">
+            From grand celebrations to intimate gatherings — turning your vision into reality with creativity, precision, and style across {company.locations.join(', ')} & beyond.
+          </p>
+          <div className="hero-tags">
+            {serviceTags.map((tag, i) => (
+              <span key={tag} className="hero-tag" style={{ animationDelay: `${i * 0.1}s` }}>{tag}</span>
+            ))}
+          </div>
+          <div className="hero-actions">
+            <button className="btn-primary" onClick={() => setPage('contact')}>Book an Event</button>
+            <button className="btn-outline" onClick={() => setPage('events')}>Explore Services</button>
+          </div>
+          <div className="hero-stats">
+            <div className="hero-stat"><strong>2000+</strong><span>Events Delivered</span></div>
+            <div className="hero-stat-divider" />
+            <div className="hero-stat"><strong>500+</strong><span>Celebrity Artists</span></div>
+            <div className="hero-stat-divider" />
+            <div className="hero-stat"><strong>500+</strong><span>Locations Pan India</span></div>
+            <div className="hero-stat-divider" />
+            <div className="hero-stat"><strong>250+</strong><span>Top Clients</span></div>
+          </div>
+        </div>
+        <div className="hero-image-col">
+          <div className="hero-artist-frame">
+            <img src={artistImg} alt="Celebrity Artist" className="hero-artist-img" />
+            <div className="hero-artist-badge">⭐ Exclusive Celebrity Artists</div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Mobile Layout ── */}
+      <div className="hero-mobile-layout">
         <div className="hero-badge animate-badge">Premier Event Management</div>
         <h1 className="hero-title">
           We Craft <span className="hero-highlight">Unforgettable</span><br />
@@ -267,6 +307,16 @@ function Hero({ setPage }) {
             <span key={tag} className="hero-tag" style={{ animationDelay: `${i * 0.1}s` }}>{tag}</span>
           ))}
         </div>
+
+        {/* Celebrity Artist Photo exactly under the top text on mobile */}
+        <div className="hero-image-col">
+          <div className="hero-artist-frame">
+            <img src={artistImg} alt="Celebrity Artist" className="hero-artist-img" />
+            <div className="hero-artist-badge">⭐ Exclusive Celebrity Artists</div>
+          </div>
+        </div>
+
+        {/* Buttons & Stats exact under the celebrity artist photo on mobile */}
         <div className="hero-actions">
           <button className="btn-primary" onClick={() => setPage('contact')}>Book an Event</button>
           <button className="btn-outline" onClick={() => setPage('events')}>Explore Services</button>
@@ -279,12 +329,6 @@ function Hero({ setPage }) {
           <div className="hero-stat"><strong>500+</strong><span>Locations Pan India</span></div>
           <div className="hero-stat-divider" />
           <div className="hero-stat"><strong>250+</strong><span>Top Clients</span></div>
-        </div>
-      </div>
-      <div className="hero-image-col">
-        <div className="hero-artist-frame">
-          <img src={artistImg} alt="Celebrity Artist" className="hero-artist-img" />
-          <div className="hero-artist-badge">⭐ Exclusive Celebrity Artists</div>
         </div>
       </div>
     </header>

@@ -270,14 +270,23 @@ img { max-width: 100%; display: block; }
 .hero-section {
   position: relative;
   min-height: 100svh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 60px;
+  display: block;
   padding: 110px 72px 70px;
   max-width: 1400px;
   margin: 0 auto;
   overflow: hidden;
+}
+
+.hero-desktop-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+  width: 100%;
+}
+
+.hero-mobile-layout {
+  display: none;
 }
 
 .hero-bg {
@@ -1272,18 +1281,27 @@ img { max-width: 100%; display: block; }
 
 /* ── Tablet & Smaller Desktop (≤1100px) ── */
 @media (max-width: 1100px) {
+  .hero-desktop-layout {
+    display: none;
+  }
+  .hero-mobile-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 28px;
+    width: 100%;
+  }
   .hero-section {
-    grid-template-columns: 1fr;
     padding: 110px 28px 60px;
     text-align: center;
-    gap: 36px;
     min-height: auto;
   }
   .hero-content { align-items: center; }
   .hero-subtitle { max-width: 580px; }
   .hero-artist-frame { max-width: 440px; margin: 0 auto; }
   .hero-artist-img { height: auto; max-height: 520px; object-fit: contain; object-position: top center; background: var(--purple-50); }
-  .hero-image-col { order: -1; } /* Artist photo ABOVE text on tablet */
+  .hero-image-col { order: initial; }
   .about-hero { grid-template-columns: 1fr; }
   .about-logo-col { order: -1; }
   .contact-layout { grid-template-columns: 1fr; }
@@ -1317,7 +1335,7 @@ img { max-width: 100%; display: block; }
     padding: 90px 18px 50px;
     gap: 28px;
   }
-  .hero-image-col { order: -1; width: 100%; }
+  .hero-image-col { order: initial; width: 100%; }
   .hero-artist-frame {
     max-width: 100%;
     border-radius: var(--r-lg);
