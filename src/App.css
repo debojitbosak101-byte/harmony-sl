@@ -1950,3 +1950,123 @@ img { max-width: 100%; display: block; }
 .mobile-gallery-card .events-photo-caption {
   transform: translateY(0);
 }
+
+/* ─── Brand Pillars Section ────────────────────────────── */
+.brand-pillars-section {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+.brand-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.brand-pillar-card {
+  background: linear-gradient(145deg, #ffffff 0%, #fbf9ff 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 36px 30px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Glassmorphism border highlight */
+.brand-pillar-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-lg);
+  border: 2px solid transparent;
+  background: linear-gradient(135deg, var(--purple-400), var(--gold-400)) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.brand-pillar-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(107, 53, 217, 0.12);
+}
+
+.brand-pillar-card:hover::after {
+  opacity: 1;
+}
+
+.brand-pillar-card .pillar-icon {
+  font-size: 2.8rem;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--purple-50);
+  border-radius: var(--r-md);
+  color: var(--purple-700);
+  transition: transform 0.4s ease;
+}
+
+.brand-pillar-card:hover .pillar-icon {
+  transform: scale(1.1) rotate(5deg);
+  background: var(--purple-100);
+}
+
+.brand-pillar-card h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--purple-900);
+  margin: 0;
+}
+
+.brand-pillar-card p {
+  font-size: 0.94rem;
+  color: var(--gray-700);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Bulleted lists for Mission */
+.pillar-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pillar-list li {
+  display: flex;
+  gap: 10px;
+  font-size: 0.94rem;
+  color: var(--gray-700);
+  line-height: 1.5;
+  align-items: flex-start;
+}
+
+.bullet-point {
+  color: var(--purple-500);
+  font-weight: 700;
+  user-select: none;
+}
+
+/* Responsive Overrides */
+@media (max-width: 1100px) {
+  .brand-pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .brand-pillar-card {
+    padding: 30px 24px;
+  }
+}

@@ -370,6 +370,53 @@ function AboutPage() {
         </ScrollSection>
       </section>
 
+      <section className="brand-pillars-section">
+        <ScrollSection>
+          <span className="section-eyebrow">Our Philosophy</span>
+          <h2 className="section-title">Who We Are, Our Vision & Mission</h2>
+        </ScrollSection>
+        <div className="brand-pillars-grid">
+          <ScrollSection className="brand-pillar-card who-we-are-card" delay={100}>
+            <div className="pillar-icon">✨</div>
+            <h3>Who We Are?</h3>
+            <p>
+              We cover all your A to Z needs at one place, be it a business need, celebratory event, product launch or a private gathering. Make your special moments even more special without going through the hassle of conceptualising it and that too in the most fancy and classy way, keeping your budget constraints in mind. We take charge of all the aspects to ease the burden on you and create fabulous events.
+            </p>
+          </ScrollSection>
+          
+          <ScrollSection className="brand-pillar-card vision-card" delay={200}>
+            <div className="pillar-icon">👁️</div>
+            <h3>Our Vision</h3>
+            <p>
+              To become one of India’s most trusted and innovative event management companies, known for creativity, excellence, and unmatched service quality.
+            </p>
+          </ScrollSection>
+
+          <ScrollSection className="brand-pillar-card mission-card" delay={300}>
+            <div className="pillar-icon">🚀</div>
+            <h3>Our Mission</h3>
+            <ul className="pillar-list">
+              <li>
+                <span className="bullet-point">✦</span>
+                <span>To craft personalized experiences that exceed expectations</span>
+              </li>
+              <li>
+                <span className="bullet-point">✦</span>
+                <span>To deliver events with precision, passion, and professionalism</span>
+              </li>
+              <li>
+                <span className="bullet-point">✦</span>
+                <span>To innovate continuously and bring fresh concepts to every project</span>
+              </li>
+              <li>
+                <span className="bullet-point">✦</span>
+                <span>To create meaningful moments that last a lifetime</span>
+              </li>
+            </ul>
+          </ScrollSection>
+        </div>
+      </section>
+
       <section className="values-section">
         <ScrollSection>
           <span className="section-eyebrow">What Drives Us</span>
@@ -850,6 +897,18 @@ function ContactPage() {
     name: '', email: '', eventType: 'Live Music / Celebrity Artist', location: '', message: ''
   });
   const [sent, setSent] = useState(false);
+
+  useEffect(() => {
+    if (window.innerWidth <= 900) {
+      const timer = setTimeout(() => {
+        const formElement = document.querySelector('.contact-form');
+        if (formElement) {
+          formElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
