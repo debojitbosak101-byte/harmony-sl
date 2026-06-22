@@ -346,6 +346,21 @@ function AboutPage() {
     { icon: '✨', title: 'Excellence', desc: 'Over 2000 events delivered with 100% commitment to quality.' },
     { icon: '❤️', title: 'Passion', desc: 'We love what we do — and it shows in every unforgettable moment we create.' },
   ];
+
+  useEffect(() => {
+    if (window.innerWidth <= 900) {
+      const timer = setTimeout(() => {
+        const element = document.querySelector('.page-content');
+        if (element) {
+          const yOffset = -85; // accounts for fixed header height
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   return (
     <main className="page-content">
       <section className="about-hero">
@@ -810,6 +825,20 @@ const artistGalleryImages = [
 
 function CelebrityPage() {
   const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    if (window.innerWidth <= 900) {
+      const timer = setTimeout(() => {
+        const element = document.querySelector('.page-content');
+        if (element) {
+          const yOffset = -85; // accounts for fixed header height
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   return (
     <main className="page-content">
